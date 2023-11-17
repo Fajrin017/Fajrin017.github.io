@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +28,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         config(['app.locale' => 'id' ]);
+
+        // Gate::define('admin', function(User $user) {
+        //     return $user->username === 'fajrin';
+        // });
+
+        Gate::define('admin', function(User $user) {
+            return $user->is_admin;
+        });
     }
 }

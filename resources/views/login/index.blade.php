@@ -18,7 +18,7 @@
     @endif
 
   <main class="form-signin text-center">
-    <h1 class="h3 mb-3 fw-normal text-center">Please Login</h1>
+    <h1 class="h3 mb-3 fw-normal text-center">Silahkan Masuk</h1>
   <form action="/login" method="post">
     @csrf
     <img class="mb-3" src="/img/maskot1.png" alt="" width="150" height="120">
@@ -35,6 +35,7 @@
     <div class="form-floating">
       <input type="password" name="password" class="form-control rounded-bottom" id="password" placeholder="Password" required>
       <label for="password">Password</label>
+      
     </div>
 
     <!-- <div class="checkbox mb-3">
@@ -42,10 +43,10 @@
         <input type="checkbox" value="remember-me"> Remember me
       </label>
     </div> -->
-    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Login</button>
-    <p class="mt-5 mb-3 text-muted text-center">&copy; 2022</p>
+    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">MASUK</button>
+    <p class="mt-5 mb-3 text-muted text-center">&copy; 2023</p>
   </form>
-  <small class="d-block text-center mt-3">Not Registered? <a href="/register">Register Now!</a></small> 
+  <small class="d-block text-center mt-3">Belum Daftar ? <a href="/register">Daftarkan Sekarang</a></small> 
 </main>
   </div>
 </div>

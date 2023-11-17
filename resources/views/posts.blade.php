@@ -43,10 +43,21 @@
     <p>
         <small class="text-muted">By : <a href="/posts?author={{ $posts[0]->author->username }}"
             class="text-decoration-none">{{ $posts[0]->author->name }} </a> in <a href="/posts?category={{ $posts[0]->category->slug}}"
-            class="text-decoration-none"> {{ $posts[0]->category->name   }} </a> {{ $posts[0]->created_at->diffForHumans() }}
+            class="text-decoration-none"> {{ $posts[0]->category->name   }} </a> {{ $posts[0]->created_at }}
         </small>
     </p>
     <p class="card-text">{{ $posts[0]->excerpt }}</p>
+
+    <!-- <h3 class="float-end">Status Laporan</h3> -->
+    @if ($posts[0]->post_status !==1)
+        <td>
+        <h4 class="float-end"><span class="badge bg-success">{{ $posts[0]->post_status->nama }}</span></h4>
+        </td>
+    @else
+        <td>
+        <h4 class="float-end"><span class="badge bg-warning">{{ $posts[0]->post_status->nama }}</span></h4>
+        </td>
+    @endif
 
     <a href="/posts/{{ $posts[0]->slug}}" class="text-decoration-none btn btn-primary">Read More</a>
     </div>
@@ -69,10 +80,20 @@
                     <h5 class="card-title">{{ $post->title }}</h5>
                     <p>
                         <small class="text-muted">By : <a href="/posts?author={{ $posts[0]->author->username }}"
-                         class="text-decoration-none">{{ $post->author->name }} </a> {{ $post->created_at->diffForHumans() }}
+                         class="text-decoration-none">{{ $post->author->name }} </a> {{ $post->created_at }}
                         </small>
                     </p>
                 <p class="card-text">{{ $post->excerpt }}</p>
+
+        @if ($post->post_status !==1)
+        <td>
+        <h5 class="float-start"><span class="badge bg-success">{{ $post->post_status->nama }}</span></h5>
+        </td>
+        @else
+        <td>
+        <h5 class="float-start"><span class="badge bg-warning">{{ $post->post_status->nama }}</span></h5>
+        </td>
+        @endif
             <a href="/posts/{{ $post->slug }}" class="btn btn-primary">Read More</a>
             </div>
         </div>

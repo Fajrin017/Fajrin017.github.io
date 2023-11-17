@@ -2,11 +2,9 @@
 
 @section('container')
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Semua Laporan {{ auth()->user()->name }}</h1>
+    <h1 class="h2">{{ $title }}</h1>
     <h5 style="color:blue;">Jumlah laporan telah diinput : {{ $posts->count() }}</h5>
   </div>
-
-  
 
   @if(session()->has('success'))
     <div class="alert alert-success col-lg-8" role="alert">
@@ -15,7 +13,7 @@
   @endif
 
   <div class="table-responsive col-lg-12">
-    <a href="/dashboard/posts/create" class= "btn btn-primary mb-3">Buat Laporan Baru</a>
+    <!-- <a href="/dashboard/posts/create" class= "btn btn-primary mb-3">Buat Laporan Baru</a> -->
         <table class="table table-striped table-sm-4">
           <thead>
             <tr>
@@ -24,6 +22,7 @@
               <th scope="col">Approval</th>
               @endcan
               <th scope="col">Judul</th>
+              <th scope="col">User</th>
               <th scope="col">Seksi/Subseksi</th>
               <th scope="col">Laporan Dibuat</th>
               <th scope="col">Status Laporan</th>
@@ -31,9 +30,11 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($posts as $post)
+            <?php $no=1; ?>
+            @foreach ($posts as $index => $post)
             <tr>
-              <td>{{ $loop->iteration }}</td>
+              <!-- <td>{{ $loop->iteration }}</td> -->
+              <td>{{ $index + $posts->firstItem() }}</td>
               @can('admin')
               <td>
                 <a href="{{ url('dashboard/posts/approved/'.$post->id) }}">
@@ -43,34 +44,26 @@
               </td>
               @endcan
               <td>{{ $post->title }}</td>
+              <td><a class="text-decoration-none" href="/dashboard/postingan?author={{ $post->author->username }}">{{ $post->author->name }}</td></a>
               <td>{{ $post->category->name}}</td>
               <td>{{ $post->created_at }}</td>
-
-              
               @if ($post->post_status !==1)
               <td>
-                
-                <span class="badge bg-primary">{{ $post->post_status->nama }}</span>
+                <div class="badge bg-primary"><label>{{ $post->post_status->nama }}</label></div>
               </td>
-              @else 
+              @else
               <td>
-                <span class="badge bg-success">{{ $post->post_status->nama }}</span>
+                <div class="badge bg-warning"><label>{{ $post->post_status->nama }}</label></div>
               </td>
               @endif
-
-             
-             
-              
               
               <td>
                 <a href="/dashboard/posts/{{ $post->slug }}" class="badge bg-info"><span data-feather="eye"></span></a>
-                @can('admin')
                 <a href="/dashboard/posts/{{ $post->slug }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
                 <form action="/dashboard/posts/{{ $post->slug}}" method="post" class="d-inline">
                   @method('delete')
                   @csrf
                   <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>
-                  @endcan
                 </form>
               </td>
               
@@ -84,7 +77,11 @@
         </table>
       </div>
 
+      <div class="d-flex justify-content-end mb-5">
+      {{ $posts->links() }}
+      </div>
 
+      <a class="btn btn-success mb-5" href="/dashboard/postingan"><span data-feather="arrow-left"></span>Kembali</a>
 
 @endsection
 

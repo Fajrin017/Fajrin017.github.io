@@ -5,16 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
+// use App\Models\Sub;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Support\Carbon;
 
 class Post extends Model
 {
     use HasFactory;
     use Sluggable;
 
-    // protected $fillable = ['title', 'excerpt', 'body'];
+    // protected $fillable = ['category_id','user_id', 'title', 'slug', 'excerpt', 'image','body',];
     protected $guarded = ['id'];
     protected $with =['category', 'author'];
+
+    public function getCreatedAtAttribute()
+    {
+        return Carbon::parse($this->attributes['created_at'])->translatedFormat('d-m-Y h:i:s');
+    }
 
     public function scopeFilter($query, array $filters)
     {
@@ -76,5 +83,16 @@ class Post extends Model
             ]
         ];
     }
+
+
+    public function post_status()
+    {
+        return $this->belongsTo(Post_Status::class, 'post_status_id');
+    }
+
+    // public function sub ()
+    // {
+    //     return $this->hasMany(Sub::class);
+    // }
 
 }

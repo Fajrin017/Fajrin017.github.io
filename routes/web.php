@@ -3,11 +3,14 @@
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Sub;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardPostController;
+use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\AdminUserController;
 
 
 /*
@@ -117,3 +120,11 @@ Route::get('/dashboard', function(){
 
 Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');       
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
+
+Route::resource('/dashboard/postingan', AdminPostController::class)->except('show')->middleware('admin');
+
+// Route::get('/dashboard/posts/{approved:id}', [DashboardPostController::class, 'approved'])->middleware('auth');
+Route::get('/dashboard/posts/approved/{id}', [DashboardPostController::class, 'approved'])->middleware('auth');
+
+
+Route::resource('/dashboard/users', AdminUserController::class)->except('show')->middleware('admin');

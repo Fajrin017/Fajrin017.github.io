@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\User;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Sub;
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use App\Models\Post_Status;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,7 +20,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         
-
+        User::create([
+            'name' => 'Fajrin Hidayattussyalikin',
+            'username' => 'fajrin',
+            'email' => 'fajrinh@gmail.com',
+            'password' => bcrypt('12345')
+        ]);
         // User::create([
         //     'name' => 'Fajrin Hidayattussyalikin',
         //     'email' => 'idlanbazil0307@gmail.com',
@@ -58,6 +65,16 @@ class DatabaseSeeder extends Seeder
         ]);
         
         Post::factory(20)->create();
+        
+        // Sub::factory(20)->create();
+
+        Post_Status::create([
+            'nama' => 'belum ditindaklanjuti',
+        ]);
+
+        Post_Status::create([
+            'nama' => 'telah ditindaklanjuti',
+        ]);
 
         // Post::create([
         //     'title' => 'Judul Pertama',
